@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Here you can buy items">
+    <title>Hot Items</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Style+Script&display=swap" rel="stylesheet">
+     <link rel="stylesheet" href="css/all.css">
+     <link rel="stylesheet" href="css/new.css">
+      <style>
+
+.cart-overlay {
+    padding: 2em;
+    width:100%;
+   transition: all 700ms linear;
+     background:beige;
+     z-index: 2;
+    visibility: hidden;
+    width:190px;
+    min-height: 294px;
+    /*position */
+    position: absolute;
+    left: -141px;
+    top: 134%;
+
+          }
+
+          .cart{
+         transition: all 700ms linear;
+/*transform: translateX(100%);s*/
+/*              overflow: scroll;*/
+
+          }
+
+          .transparentBCG{
+              visibility: visible;
+          }
+
+          .showCart{
+/*              transform: translate(0)*/
+          }
+
+      </style>
+  </head>
+  <body>
+<div class="main">
+
+<header class="navbar">
+<ul class='nav'>
+<li><a id="hot_item" href="#">items</a></li>
+<li><a href="#">portfolio</a></li>
+<li><a href="#">Blog</a></li>
+<li><a href="#">pages</a></li>
+</ul>
+<span style="clear:both;"></span>
+<h1 id="logo">wakystore</h1>
+<div class="account-icons">
+<div class="search">
+<a href="#"><i class="fas fa-search"></i></a>
+</div>
+<div class="setting">
+<a href="#"><i class="far fa-user"></i ></a>
+</div>
+<div class="favorite">
+<a href="#"><i class="far fa-heart"></i></a>
+</div>
+<div class="list">
+<a id='grey' href="#">
+    <i class="fas fa-shopping-cart"></i>
+    <span id="counter" style="background: orange;color: white;font-size: 0.6em;position: absolute;top: -13px;right: -4px;padding: 0.1em;width: 10px;text-align: center;">1</span>
+    </a>
+    <div class="cart-overlay">
+        <span class="fas fa-window-close close"></span>
+        <h1> your items</h1>
+        <hr>
+        <!-- this where addCartItem methode start -->
+        <div class='cart-content'>
+            <div class="item-product">
+            <img src="bed.jpg" alt='bed products'>
+            <div class='item-detail'>
+                <h1>bed product</h1>
+                <h5 id='item-1'>$ <span class="itemPrice">150</span></h5>
+                <span class='remove'>remove</span>
+                <br>
+                <div class="chevron">
+                    <i class="fas fa-chevron-up"></i>
+                <p class='amount'>1</p>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+                </div>
+
+        </div>
+            <div class="cart-footer">
+                 <hr>
+            <h3> your total:  $ <span id='total'>0</span> </h3>
+                <button type="button" id="clear-cart">clear cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<span></span>
+
+</header>
+    <div class="main2">
+<article>
+    <div class="item_1">
+    <div class='img_container'>
+        <img src="what.jpg" alt=''>
+        <button type="button" class="bag_btn" data-id="1">
+            <i class="fas fa-shopping-cart"></i>
+            add to cart
+        </button>
+    </div>
+    <h3>Dresser</h3>
+    <h5>$ <span class='priceIn'>22.99</span></h5>
+        </div>
+
+</article>
+        </div>
+
+<!--    single product-->
+<article class="product">
+    <div class="img-container">
+    <img class="product-img">
+        <button class="bag-btn" data-id="1"><i></i>add to bag</button>
+    </div>
+    <h3 >queen bbed</h3>
+    <h4 >queen bed</h4>
+    </article>
+<!-- cart-->
+<div class="cart-overlay">
+    <div class="cart">
+    <span class="close-cart">
+        <i class="close"></i>
+        </span>
+        <h2>your cart</h2>
+        <div class="cart-content">
+<!--   cart item     -->
+            <div class="cart-item">
+            <img>
+                <div>
+                <h4>qquen bedd</h4>
+                <h5>$11.21</h5>
+                    <span class="remove-item">removev</span>
+                </div>
+                <i class="chevron-up"></i>
+                <p class='item-amount'>1</p>
+                <i class="chevron-down"></i>
+            </div>
+<!--   endcart item     -->
+
+        </div>
+        <div class="cart-footer">
+        <h3>your total $ <span class='cart-total'>0</span></h3>
+            <button class="clear-cart banner-btn">clear cart</button>
+        </div>
+
+    </div>
+    </div>
+      <footer style="background:rgb(72, 224, 164);width:100%;padding: 30px 0 52px;;height:60px">
+<h5>&copy;all right reserved</h5>
+<p>Rachid Theme by <a href="#">bencoding.com</a></p>
+<div class="icons">
+	<a href="#"><i class="fab fa-instagram"></i></a>
+	<a href="#"><i class="fab fa-facebook-square"></i></a>
+	<a href="#"><i class="fab fa-twitter"></i></a>
+	<a href="#"><i class="fab fa-pinterest"></i></a>
+</div>
+</footer>
+      </div>
+      <script>
+
+    // declare variable
+//const cartOverlay = document.querySelector('.cart-overlay')
+//const cartDom = document.querySelector('.list'),
+//    cartBtn = document.getElementById('grey');
+//const cartDom = document.querySelector('.cart')
+
+let cartDOM = document.querySelector('.list');
+let cartOverlay = document.querySelector('.cart-overlay'),
+    cartBtn = document.getElementById('grey');
+
+
+const closeCartBtn = document.querySelector('.close'),
+     cartTotal = document.getElementById('total'),
+     cartItems = document.getElementById('counter'),
+     clearCartBtn = document.getElementById('clear-cart');
+let cartContent = document.querySelector('.cart-content');
+let productsDOM = document.querySelector('products-center')
+
+
+   let  eleDOM = document.querySelector('.main2');
+
+          let removeBtn = document.querySelectorAll('.remove'),
+              up = document.querySelectorAll('.fa-chevron-up'),
+              down = document.querySelectorAll('.fa-chevron-down');
+
+// product Promise
+
+
+class Product {
+         async getProduct() {
+       try{
+        let first =  await fetch('product.json');
+        let data = await first.json();
+        let product = data.map(item => {
+            const {title,price,filename,id} = item;
+            return {
+               title,
+                price,
+                filename,
+                id
+               }
+           });
+           return product;
+       } catch(err) {
+           console.log(err);
+       }
+    }
+ }
+                  let cart = [],
+    buttonsDOM = [];
+
+    class UI {
+
+        displayProducts(products) {
+        let result = '';
+
+
+            products.forEach(product => {
+        result += `<article class="item_1">
+<div class="img_container">
+    <img src="${product.filename}" alt="">
+    <button type="button" class="bag_btn" data-id="${product.id}">
+            <i class="fas fa-shopping-cart"></i>
+add to cart</button>
+
+</div>
+    <h5 class="item_title">${product.title}</h5>
+    <h3 class="item_price">$ <span class="price">${product.price}</span></h3>
+    </article>`;
+        })
+            eleDOM.innerHTML = result;
+      }
+
+
+        getBagButtons() {
+    let btns = [...document.querySelectorAll('.bag_btn')];
+    buttonsDOM = btns;
+
+
+            buttonsDOM.forEach(ele => {
+    let id = ele.dataset.id,
+        inCart = cart.find(item => item.id === id);
+
+    if (inCart) {
+        ele.textContent = 'In Cart';
+        ele.disabled = true;
+    }
+
+        ele.addEventListener('click',(event) => {
+             event.target.innerText = 'In Cart';
+        event.target.disabled = true;
+
+          //Get Product
+        let cartItem = {...Storage.getProduct(id), amount:1};
+            console.log(cartItem);
+//            //add Product to the cart
+//            cart = [...cart,cartItem];
+//            //save cart in storage
+//            Storage.saveCart(cart);
+            //setCartValues
+//            this.setCartValues(cart)
+            //display cart item
+//            this.addCartItem(cartItem)
+            //show the cart
+//            this.showCart();
+        });
+
+})
+
+        }
+         setCartValues(cart) {
+         let tempTotal = 0,
+             itemsTotal = 0;
+         cart.map(item => {
+             tempTotal += item.price * item.amount;
+             itemsTotal += item.amount;
+         });
+         cartTotal.innerText = parseFloat(tempTotal.toFixed(2));
+         cartItems.innerText = itemsTotal;
+     }
+       addCartItem(item) {
+         let div = document.createElement('div');
+         div.classList.add('item-product');
+         div.innerHTML = `<img src="${item.filename}" alt='${item.title}'>
+            <div class='item-detail'>
+                <h1>${item.title}</h1>
+                <h5 id='item-1'>$ <span class="itemPrice">${item.price}</span></h5>
+                <span class='remove' data-id='${item.id}'>remove</span>
+                <br>
+                <div class="chevron">
+                    <i class="fas fa-chevron-up" data-id="${item.id}"></i>
+                <p class='amount'>${item.amount}</p>
+                    <i class="fas fa-chevron-down" data-id="${item.id}"></i>
+                </div>
+            </div>`;
+          return cartContent.appendChild(div);
+     }
+    showCart() {
+        cartOverlay.classList.add('transparentBCG');
+        cartDOM.classList.add('showCart');
+    }
+
+    setupApp() {
+        cart = Storage.getCart();
+        this.setCartValues(cart);
+        this.populate(cart);
+        cartBtn.addEventListener('click', this.showCart);
+        closeCartBtn.addEventListener('click', this.hideCart);
+    }
+        populate(cart) {
+     cart.forEach(item => this.addCartItem(item));
+    }
+   hideCart() {
+       cartOverlay.classList.remove('transparentBCG');
+        cartDOM.classList.remove('showCart');
+   }
+        cartLogic() {
+            //clear cart btn
+            clearCartBtn.addEventListener("click",() => {
+                this.clearCart();
+            });
+            //  cart functionality
+            cartContent.addEventListener('click', event => {
+  if(event.target.classList.contains('remove-item')) {
+            let removeItem = event.target;
+      let id = removeItem.dataset.id;
+    cartContent.removeChild(removeItem.parentElement.parentElement)
+                }
+                else if(event.target.classList.contains('fa-chevron-up')) {
+                    let addAmount = event.target,
+                        id = addAmount.dataset.id,
+                        tempItem = cart.find(item => item.id === id);
+                    tempItem.amount += 1;
+                    Storage.saveCart(cart);
+                    this.setCartValues(cart);
+                    addAmount.nextElementSibling.innerText = tempItem.amount;
+                }
+                else if(event.target.classList.contains('fa-chevron-down')) {
+                let lowerAmount = event.target,
+                    id = lowerAmount.dataset.id,
+            tempItem = cart.find(item => item.id === id);
+                    tempItem.amount = tempItem.amount - 1;
+                    if(tempItem.amount > 0 ) {
+                        Storage.saveCart(cart);
+                        this.setCartValues(cart);
+                        lowerAmount.previousElementSibling.innerText = tempItem.amount;
+                    } else {
+                        cartContent.removeChild(lowerAmount.parentElement.parentElement);
+                        this.removeItem(id);
+                    }
+                }
+            })
+        }
+        clearCart() {
+            let cartItems = cart.map(item => item.id)
+            .forEach(id => this.removeItem(id));
+            while(cartContent.children.length > 0) {
+                cartContent.removeChild(cartContent.children[0]);
+            }
+            this.hideCart();
+        }
+        removeItem(id) {
+            cart = cart.filter(item => item.id !== id);
+            this.setCartValues(cart);
+            Storage.saveCart(cart);
+            let button = this.getSingleButton(id);
+            button.disabled = false;
+            button.innerHTML = `<i class="fas fa-shopping-cart"></i>add to cart`;
+        }
+        getSingleButton(id) {
+            return buttonsDOM.find(button => button.dataset.id === id);
+        }
+    }
+
+
+
+          class Storage {
+
+  static saveProduct(products) {
+      localStorage.setItem('productsline', JSON.stringify(products));
+    }
+    static getProduct(id) {
+        let products = JSON.parse(localStorage.getItem('productsline'));
+             products.forEach(prop => {
+                     return prop.id === id;
+             });
+      }
+
+      static saveCart(cart) {
+        localStorage.setItem('cartline',JSON.stringify(cart));
+      }
+        static getCart() {
+            return localStorage.getItem('cartline') ? JSON.parse(localStorage.getItem('cartline')) : [] ;
+        }
+
+}
+
+//Storage.getProduct(id)
+document.addEventListener('DOMContentLoaded', function() {
+    const ui = new UI(),
+          products = new Product();
+//    ui.setupApp();
+    //get All products
+     products.getProduct().then(data => {
+            ui.displayProducts(data);
+            Storage.saveProduct(data);
+
+
+}).then(() => {
+            ui.getBagButtons();
+//            ui.cartLogic();
+        })
+
+})
+
+      </script>
+  </body>
+</html>
