@@ -1,0 +1,90 @@
+[{
+  "id": 1,
+  "title": "apple iphone 12 pro-max ",
+  "filename": "image/0.jpg",
+  "price": 1099.99,
+  "rating": 4,
+  "category":"phones"
+}, {
+  "id": 2,
+  "title": "beko fridge",
+  "filename": "image/1.jpg",
+  "price": 194.99,
+  "rating": 4,
+  "category":"electronics"
+}, {
+  "id": 3,
+  "title": "beko american style black freestanding fridge-freezer",
+  "filename": "image/2.jpg",
+  "price": 399.95,
+  "category":"electronics"
+
+}, {
+  "id": 4,
+  "title": "climatiseur",
+  "filename": "image/3.jpg",
+  "price": 199.5,
+  "rating": 4,
+  "category":"electronics"
+
+}, {
+  "id": 5,
+  "title": "cooker",
+  "filename": "image/4.jpg",
+  "price": 169.99,
+  "rating": 4,
+  "category":"electronics"
+
+  },{
+    "id": 6,
+    "title": "samsung s20",
+    "filename": "image/5.jpg",
+    "price": 1400.99,
+    "rating": 4,
+    "category":"phones"
+
+  },
+  {
+    "id": 7,
+    "title": "iPhone-12 mini blue",
+    "filename": "image/6.jpg",
+    "height": 600,
+    "width": 399,
+    "price": 210,
+    "rating": 4,
+     "category":"phones"
+
+    },
+    {
+      "id": 8,
+      "title": "iPhone-7",
+      "filename": "image/7.png",
+      "price": 499.99,
+      "rating": 4,
+      "category":"phones"
+
+      },
+      {
+        "id": 9,
+        "title": "tv wide",
+        "filename": "image/8.png",
+        "price": 200.68,
+        "rating": 4,
+        "category":"electronics"
+        },
+        {
+          "id": 10,
+          "title": "denim shirt original",
+          "filename": "image/9.jpg",
+          "price": 22.28,
+          "rating": 4,
+          "category":"clothes"
+          },
+          {
+            "id": 11,
+            "title": "ambush xxl t-shirt",
+            "filename": "image/10.png",
+            "price": 20.2,
+            "rating": 4,
+            "category":"clothes"
+            }]

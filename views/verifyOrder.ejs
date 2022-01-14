@@ -1,0 +1,16 @@
+<%- include('parts/layout') %>
+<%- include('parts/nav') %>
+<h3 style="text-align:center" class="p-5">Login Account</h3>
+<form class="shadow-sm mb-5 bg-body bg-primary rounded p-5" action="/orderAddress" method="POST" >
+
+  <label for="address">Your address:</label>
+  <br>
+  <textarea id="address" class="form-control" name="address" rows="8" cols="20">
+  </textarea>
+  <input class="btn btn-primary" type="submit" value="Order">
+
+</form>
+
+<p> <a href="/">ignore Enter address</a></p>
+
+<%- include('parts/footer') %>

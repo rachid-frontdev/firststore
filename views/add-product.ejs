@@ -1,0 +1,41 @@
+<%- include('parts/layout') %>
+<%- include('parts/nav') %>
+<div class="container">
+  <h3>add product</h3>
+  <form enctype="multipart/form-data" action="/admin/add" method="post">
+
+<% if (validationErrors) { %>
+  <% let nameError = validationErrors.find(err => err.param === 'title') %>
+  <% if (nameError) { %>
+  <p class="alert alert-danger"><%=nameError.msg %></p>
+  <% } %>
+  <% let filenameError = validationErrors.find(err => err.param === 'filename') %>
+  <% if (filenameError) { %>
+    <p class="alert alert-danger"><%=filenameError.msg %></p>
+    <% } %>
+
+  <% }%>
+
+    <input type="text" name="title" class="form-control" placeholder="title of product">
+    <br>
+    <input type="number" name="rating" class="form-control" placeholder="Max 5">
+    <br>
+
+          <input type="number" name="price" class="form-control" placeholder="put price here">$
+    <br>
+
+<label for="category">Select Category You are Want </label>
+          <select id="category" class="form-control" name="category">
+            <option value="phones">phones</option>
+            <option value="electronics">electronics</option>
+            <option value="clothes">clothes</option>
+          </select>
+          <br>
+    <input type="file" name="filename" class="form-control">
+          <br>
+  <input type="submit" class="btn btn-primary" value="Add Product">
+
+  </form>
+
+</div>
+<%- include('parts/footer') %>

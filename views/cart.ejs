@@ -1,0 +1,48 @@
+<%- include('parts/layout') %>
+<%- include('parts/nav') %>
+<% if(items.length === 0) { %>
+<div class="alert alert-danger">
+  <p>there isn't any items </p>
+</div>
+<%} else{%>
+<table class="table table-dark table-hover table-bordered p-5">
+  <thead>
+    <tr>
+<td scope="col">no</td>
+<td scope="col">product name</td>
+<td scope="col">price</td>
+<td scope="col">amount</td>
+<td colspan="2" scope="col">Total</td>
+</tr>
+  </thead>
+<tbody>
+<% for(let i=0;i <items.length;i+=1){%>
+  <tr>
+    <th scope="row"><%= i+1 %></th>
+    <td><%= items[i].name %></td>
+    <td><%= items[i].price %>$</td>
+<form method="post">
+  <td>
+    <input type="number" name="amount" class="form-control amount" value="<%= items[i].amount %>">
+    <span class="wrong"></span>
+  </td>
+  <td><%= items[i].price * items[i].amount %>$</td>
+<td >
+  <input type="hidden" name="cartId" value="<%= items[i]._id %>">
+  <input type="submit" class="btn btn-success" value="save"formaction="/cart/save">
+  <input type="submit" class="btn btn-danger" value="delete"formaction="/cart/delete">
+  <input type="submit" class="btn btn-danger" value="deleteAll"formaction="/cart/deleteAll">
+
+</td>
+<td>
+    <input type="submit" class="btn btn-success" value="order"formaction="/cart/order">
+</td>
+</form>
+</tr>
+<% }%>
+</tbody>
+
+</table>
+  <% }%>
+<script src="./js/cart.js"></script>
+<%- include('parts/footer') %>

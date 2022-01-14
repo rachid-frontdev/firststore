@@ -1,10 +1,89 @@
 const express = require('express'),
       path = require('path'),
       app = express();
-app.listen('3000', () => {
+const db = require('./db.js');
+const homeRouter = require(path.join(__dirname, 'routes','home-routes.js'));
+const productRouter = require(path.join(__dirname, 'routes','product-routes.js'));
+const authRouter = require(path.join(__dirname, 'routes','auth-routes.js'));
+const cartRouter = require(path.join(__dirname, 'routes','cart-routes.js'));
+const adminRouter = require(path.join(__dirname, 'routes','admin-routes.js'));
+var session = require('express-session');
+const flash = require('connect-flash');
+const helmet = require("helmet");
+const SessionStore = require('connect-mongodb-session')(session);
+const port = process.env.PORT || 3000;
+
+const authModel = require('./models/authenticateModel.js')
+app.listen(port, () => {
   console.log('server run')
 });
+db();
+// for parsing application/json
+app.use(express.json());
+// for parsing application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'folder')));
-app.get('/',(req,res) => {
-  res.sendFile(path.join(__dirname,'index.html'));
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+const {
+  SESS_NAME = 'sid',
+  NODE_ENV = 'development'
+} = process.env;
+
+const IN_PROD = NODE_ENV === 'production';
+
+const store = new SessionStore({
+  uri:'mongodb://localhost:27017/online-shop',
+  collection:'sessions'
+});
+// Catch errors
+store.on('error', (error) => {
+  console.log(error);
+});
+
+app.use(helmet());
+app.use(session({
+  name:SESS_NAME,
+    secret:'session secret',
+    saveUninitialized:false,
+    resave:false ,
+    cookie: {secure: IN_PROD,sameSite:true },
+    store:store
+  }));
+app.use(flash());
+
+app.use(homeRouter);
+app.use(authRouter);
+app.use('/product', productRouter);
+// app.use('/cart', cartRouter);
+
+
+app.use((req,res,next) => {
+const {userId} = req.session;
+if(!userId) {
+  authModel.getUsers(userId).then(user => {
+    console.log(user.id === userId);
+    return res.locals.user = user.id;
+  })
+}
+return next();
+// res.status(500).render('error');
+});
+
+app.use('/admin',adminRouter);
+app.get('/not-admin', (req,res) => {
+  res.status(403);
+  res.render('not-admin.ejs', {
+    title:'500 ERROR',
+    isUser:req.session.userId,
+    isAdmin:false
+  });
+})
+app.get('/error', (req,res) => {
+  res.status(500);
+  res.render('errorhandling', {
+    title:'500 ERROR',
+    isUser:req.session.userId,
+    isAdmin:req.session.isAdmin
+  });
 });

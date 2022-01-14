@@ -1,0 +1,87 @@
+4.2.0
+332
+Connect-flash for display errors from controller this why i use it.
+Helmet helps you secure your Express apps by setting various HTTP header
+const funGoose = async () => {
+try {
+
+   mongoose.connect(DB_Url,{
+       useNewUrlParser: true,
+       useUnifiedTopology: true});
+       const newUser = new User({
+         name:req.body.username,
+         password:parseInt(req.body.password)
+       });
+  newUser.save(error,result => {
+
+    console.log('connected to database');
+    // close connection
+    mongoose.disconnect();
+    res.redirect('/');
+  });
+}
+catch (e) {
+      console.log("Error!" + e);
+}
+
+  }
+  funGoose()
+  //render index.ejs
+  const createDB =  () => {
+/*
+          let databaseJson = async () => {
+            const client = await MongoClient.connect('mongodb://localhost:27017',{
+                 useNewUrlParser: true,
+                 useUnifiedTopology: true,
+             });
+
+                console.log('connected to database');
+
+            fs.readFile('folder/product.json', 'utf8',  async (err, data) => {
+                if (err) throw err;
+                let json = JSON.parse(data);
+                let db = client.db('online-shop');
+                const items = await db.collection('products').insertMany(json);
+                         console.log(items);
+        // close connection
+        client.close();
+            });
+          }
+databaseJson()
+*/
+
+
+
+   }
+   // createDB();
+
+
+   backup  {index.js:[
+   <div class="row">
+     <div class="col col-12 col-sm-4 col-md-6 col-lg-3 parent" id="men">
+    <div class="img-container">
+   <img src="image/what.jpg">
+   <span>men cloth</span>
+    </div>
+     </div>
+     <div class="col col-12 col-sm-4 col-md-6 col-lg-3 parent" id="women">
+    <div class="img-container">
+   <img src="image/what.jpg">
+   <span>women</span>
+    </div>
+     </div>
+   <div class="col col-12 col-sm-4 col-md-6 col-lg-3 parent" id="kid">
+  <div class="img-container">
+ <img src="image/what.jpg">
+ <span>kid</span>
+  </div>
+   </div>
+   <div class="col col-12 col-sm-4 col-md-6 col-lg-3 parent"  id="accessories">
+  <div class="img-container">
+ <img src="image/what.jpg">
+ <span>accessories</span>
+  </div>
+   </div>
+ </div>
+]
+ }

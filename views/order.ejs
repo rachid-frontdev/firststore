@@ -1,0 +1,45 @@
+<%- include('parts/layout') %>
+<%- include('parts/nav') %>
+<% if(items.length === 0) { %>
+<div class="alert alert-danger">
+  <p>there isn't any items </p>
+</div>
+<%} else{%>
+<table class="table table-dark table-hover table-bordered p-5">
+  <thead>
+    <tr>
+<td scope="col">product name</td>
+<td scope="col">amount</td>
+<td scope="col">Total</td>
+<td scope="col">address</td>
+<td scope="col">status</td>
+<td scope="col">time</td>
+
+</tr>
+  </thead>
+<tbody>
+<% for(let i=0;i <items.length;i+=1){%>
+  <tr>
+    <th scope="row"><%= items[i].name %></th>
+    <td><%= items[i].price %>$</td>
+<form action="/order/cancel" method="post">
+  <td>
+    <input type="hidden" name="orderId" value="<%= items[i]._id %>">
+    <input type="number" name="amount" class="form-control amount" value="<%= items[i].amount %>">
+  </td>
+  <td><%= items[i].price * items[i].amount %>$</td>
+  <td><%= items[i].address %></td>
+  <td>pending</td>
+  <td><%= new Date(items[i].timestamp) %></td>
+
+<td >
+  <input type="submit" class="btn btn-danger" value="Cancel">
+</td>
+</form>
+</tr>
+<% }%>
+</tbody>
+
+</table>
+  <% }%>
+<%- include('parts/footer') %>

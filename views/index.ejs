@@ -1,0 +1,133 @@
+<%- include('parts/layout') %>
+<%- include('parts/nav') %>
+<section id="category">
+  <form action="/" method="get">
+    <select name="category" class="form-control">
+      <option value="all">all</option>
+      <option value="clothes">clothes</option>
+      <option value="phones">phones</option>
+      <option value="electronics">electronics</option>
+
+    </select>
+    <input id="filter" class="btn btn-primary" type="submit" value="filter">
+  </form>
+  <% if(validationErrors) {%>
+    <p class="alert alert-danger"><%=  validationErrors.msg %></p>
+<% } %>
+  <h2>Best Seller Product</h2>
+  <div class="row">
+    <%if(product.length == 0) {%>
+<div class="alert alert-danger">
+  <h3>we can't find products</h3>
+</div>
+    <%} else { %>
+      <%for (let item of product) {%>
+      <div class="col col-12 col-sm-6 col-md-6 col-lg-3 parent" id="men">
+     <div class="img-container">
+    <img src="/<%= item.filename%>">
+     </div>
+     <a href="/product/<%=item._id  %>">
+       <h6><%=item.title %></h6>
+     </a>
+     <h4><%=item.price %>$</h4>
+
+     <form action="/cart" method="post">
+       <input type="hidden" name="price" value="<%=item.price %>">
+       <input type="hidden" name="name" value="<%=item.title %>">
+       <input type="hidden" name="productId" value="<%=item._id %>">
+       <input type="hidden" name="redirectTo" value="/product/<%=item._id %>">
+       <input type="number" name="amount" class="form-control form-control-sm">
+       <input type="submit" value="add to cart" class="form-control form-control-sm">
+     </form>
+      </div>
+    <%  }  %>
+    <%} %>
+
+
+
+</div>
+</section>
+
+<!-- <div class="list">
+  <div class="account-icons">
+  <div class="setting">
+  <a href="#"><i class="far fa-user"></i ></a>
+  </div>
+  <div class="favorite">
+  <a href="#"><i class="far fa-heart"></i></a>
+  </div>
+
+
+<a id='grey' href="#"><i class="fas fa-shopping-cart"></i></a>
+    <div class="cart-list">
+        <span class="fas fa-window-close close"></span>
+        <h1> your items</h1>
+        <hr>
+        <div class='cart-content'>
+            <div class="item-product">
+            <img src="bed.jpg" alt='bed products'>
+            <div class='item-detail'>
+                <h1>bed product</h1>
+                <h5 id='item-1'>$ <span class="itemPrice">150</span></h5>
+                <span class='remove'>remove</span>
+                <br>
+                <div class="chevron">
+                    <i class="fas fa-chevron-up"></i>
+                <p class='amount'>1</p>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+                </div>
+            <div class="item-product-2">
+            <img src="bed.jpg" alt='bed products'>
+            <div class='item-detail'>
+                <h1>bed product</h1>
+                <h5 id='item-1'>$ <span class="itemPrice">22</span></h5>
+                <span class='remove'>remove</span>
+                <br>
+                <div class="chevron">
+                    <i class="fas fa-chevron-up"></i>
+                <p class='amount'>1</p>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+            </div>
+                </div>
+
+            <div class="cart-footer">
+                 <hr>
+            <h3> your total:  $ <span id='total'>0</span> </h3>
+                <button type="button" id="clear-cart">clear cart</button>
+            </div>
+        </div>
+        </div>
+    </div>
+</div> -->
+<% if(success) { %>
+  <div class="alert alert-success">
+succesful validation!!!
+  </div>
+  <% }%>
+
+<section id="pagin" aria-label="Page navigation example" >
+  <form action="/" method="get">
+    <ul class="pagination">
+      <li class="page-item">
+        <input  id="previous" class="form-control" type="submit" name="page" value="<">
+
+        <!-- <a class="page-link" href="#">Previous</a> -->
+      </li>
+      <% for(let j=0; j < totalPages;j+=1){ %>
+      <li class="page-item">
+        <input  class="form-control" type="submit" name="page" value="<%= j+1 %>">
+
+      </li>
+
+      <% }%>
+
+      <li class="page-item">
+        <!-- <a class="page-link" href="#">Next</a> -->
+        <input id="next" class="form-control" type="submit" name="page" value=">"></li>
+    </ul>
+  </form>
+</section>
+<%- include('parts/footer') %>
