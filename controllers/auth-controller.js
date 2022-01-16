@@ -14,16 +14,15 @@ exports.postSignup = (req,res) => {
       res.redirect('/signup');
     });
   } else {
-    res.redirect('/signup')
     req.flash('validationErrors', validationResult(req).array());
+    res.redirect('/signup')
   }
 
 }
 exports.getSignup = (req,res) => {
-  console.log(req.flash('validationErrors'));
   res.render('signup', {
   title:'signup',
-  validationErrors: req.flash('validationErrors'),
+  validationErrors: req.flash('validationErrors')[0],
   isUser:false,
   isAdmin:false
 
