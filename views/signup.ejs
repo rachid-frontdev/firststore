@@ -2,36 +2,43 @@
 <%- include('parts/nav') %>
 <h3 style="text-align:center" class="p-5">Create Account</h3>
 <form class="shadow-sm mb-5 bg-body bg-primary rounded p-5" id="signup" action="/signup" method="POST" >
+  <% console.log(validationErrors)%>
 
   <label for="user">your username</label>
   <input type="text" name="username" id="user" placeholder="your username" class="text-input">
-  <% let usernameError = validationErrors.find(err => err.param === 'username')%>
-  <% if(usernameError) { %>
-    <p class="alert alert-danger">
-      error
-  <%= usernameError.msg %>
-    </p>
-  <% } %>
+  <% if(validationErrors) { %>
+    <% let usernameError = validationErrors.find(err => err.param === 'username')%>
+    <% if(usernameError) { %>
+      <p class="alert alert-danger">
+    <%= usernameError.msg %>
+      </p>
+    <% } %>
+    <% } %>
 
   <label for="email">Your Email</label>
   <input type="email" name="email" id="email" placeholder="Your E-mail" class="text-input">
-  <% let emailError = validationErrors.find(err => err.param === 'email')%>
-  <% if(emailError) { %>
-    <p class="alert alert-danger">
-      email
-  <%= emailError.msg %>
-    </p>
-  <% } %>
+  <% if(validationErrors) { %>
+    <% let emailError = validationErrors.find(err => err.param === 'email')%>
+    <% if(emailError) { %>
+      <p class="alert alert-danger">
+        email
+    <%= emailError.msg %>
+      </p>
+    <% } %>
 
+    <% } %>
   <label for="pass">your password</label>
   <input type="password" name="password" id="pass" placeholder="Your Password" class="text-input">
-  <% let passwordError = validationErrors.find(err => err.param === 'password')%>
-  <% if(passwordError) { %>
-    <p class="alert alert-danger">
-      password
-  <%= passwordError.msg %>
-    </p>
-  <% } %>
+  <% if(validationErrors) { %>
+
+    <% let passwordError = validationErrors.find(err => err.param === 'password')%>
+    <% if(passwordError) { %>
+      <p class="alert alert-danger">
+        password
+        <%= passwordError.msg %>
+      </p>
+      <% } %>
+    <% } %>
 
   <label for="Confirmpass">Confirm password</label>
   <input type="password" name="confirmpass" id="Confirmpass" placeholder="Confirm Password" class="text-input">
@@ -39,14 +46,6 @@
   <input class="btn btn-danger" type="submit" value="Add Account">
 
 </form>
-<br>
-<% for(let item of validationErrors) { %>
-  <p class="alert alert-danger">
-<%= item.msg %>
-  </p>
-
-<% } %>
-
 <br>
 <p>already have account? <a href="/login">login</a></p>
 <%- include('parts/footer') %>

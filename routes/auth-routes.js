@@ -6,7 +6,7 @@ const authGuard = require('./protect/auth.guard.js');
 
 router.get('/signup' ,authGuard.notAuth,authController.getSignup);
 router.post('/signup',authGuard.notAuth,
-  check('username').not().isEmpty(),
+  check('username').not().isEmpty().withMessage('username Required!'),
   check('email').not().isEmpty().withMessage('email is Required!')
   .isEmail().withMessage('invalid Format'),
   check('password').not().isEmpty().isLength({min:6}),
