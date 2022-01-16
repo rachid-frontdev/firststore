@@ -1,6 +1,13 @@
 <%- include('parts/layout') %>
 <%- include('parts/nav') %>
 <h3 style="text-align:center" class="p-5">Login Account</h3>
+<% if(validlogin) { %>
+<% for(let error of validlogin) { %>
+  <% for(let i=0;i<error.length;i+=1) {%>
+    <p class="alert alert-danger">
+      <%= error[i].msg %>
+    </p>
+<% }}} %>
 <form class="shadow-sm mb-5 bg-body bg-primary rounded p-5 " id="login" action="/login" method="POST" >
 
   <label for="email">Your Email</label>
@@ -10,11 +17,7 @@
   <input class="btn btn-danger" type="submit" value="Login">
 
 </form>
-<% for(let what of validlogin) { %>
-    <p class="alert alert-info">
-      <%= what %>
-    </p>
-<% } %>
+
 
 <p>Don't have account? <a href="/signup">signup</a></p>
 

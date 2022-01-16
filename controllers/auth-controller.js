@@ -20,6 +20,7 @@ exports.postSignup = (req,res) => {
 
 }
 exports.getSignup = (req,res) => {
+  console.log(req.flash('validationErrors'));
   res.render('signup', {
   title:'signup',
   validationErrors: req.flash('validationErrors'),
@@ -29,7 +30,6 @@ exports.getSignup = (req,res) => {
 });
 }
 exports.getLogin = (req,res) => {
-
   res.render('login', {
   title:'login',
   validlogin:req.flash('validLogin'),
@@ -106,9 +106,14 @@ if(validationResult(req).isEmpty()) {
 // }
 // }
 exports.logout = (req,res) => {
+  // req.logout();
   req.session.destroy((err) => {
     if(err) res.redirect('/error');
-    res.clearCookie(SESS_NAME);
-    return res.redirect('/login');
+    res.clearCookie('sid');
+    res.redirect('/login');
   });
+  // req.session.save((err) => {
+  //   req.flash('success', 'you are logouts')
+  //   res.redirect('/login');
+  // });
 }
