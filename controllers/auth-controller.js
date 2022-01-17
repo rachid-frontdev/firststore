@@ -32,6 +32,7 @@ exports.getLogin = (req,res) => {
   res.render('login', {
   title:'login',
   validlogin:req.flash('validLogin'),
+  notCorrect:req.flash('passValidNot'),
 isUser:false,
 isAdmin:false
 });
@@ -52,7 +53,7 @@ if(validationResult(req).isEmpty()) {
   return res.redirect('/');
   })
   .catch(err => {
-    console.log(err);
+    req.flash('passValidNot', err);
     res.redirect('/login');
   });
 } else {
@@ -105,14 +106,10 @@ if(validationResult(req).isEmpty()) {
 // }
 // }
 exports.logout = (req,res) => {
-  // req.logout();
   req.session.destroy((err) => {
     if(err) res.redirect('/error');
-    res.clearCookie('sid');
+    res.clearCookie(process.env.SESS_NAME);
+    //   req.flash('success', 'you are logouts')
     res.redirect('/login');
   });
-  // req.session.save((err) => {
-  //   req.flash('success', 'you are logouts')
-  //   res.redirect('/login');
-  // });
 }

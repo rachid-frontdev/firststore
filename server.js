@@ -2,6 +2,7 @@ const express = require('express'),
       path = require('path'),
       app = express();
 const db = require('./db.js');
+require('dotenv/config');
 const homeRouter = require(path.join(__dirname, 'routes','home-routes.js'));
 const productRouter = require(path.join(__dirname, 'routes','product-routes.js'));
 const authRouter = require(path.join(__dirname, 'routes','auth-routes.js'));
@@ -12,8 +13,6 @@ const flash = require('connect-flash');
 const helmet = require("helmet");
 const SessionStore = require('connect-mongodb-session')(session);
 const port = process.env.PORT || 3000;
-
-const authModel = require('./models/authenticateModel.js')
 app.listen(port, () => {
   console.log('server run')
 });
@@ -26,7 +25,7 @@ app.use(express.static(path.join(__dirname, 'folder')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 const {
-  SESS_NAME = 'sid',
+  SESS_NAME,
   NODE_ENV = 'development'
 } = process.env;
 
@@ -52,23 +51,21 @@ app.use(session({
   }));
 app.use(flash());
 
+// app.use((req,res,next) => {
+// const {userId} = req.session;
+// if(userId) {
+//   console.log('from app.use',userId);
+//     // req.session.userId = user.id;
+//     // return res.locals.user = userId;
+// }
+// return next();
+// // res.status(500).render('error');
+// });
+
 app.use(homeRouter);
 app.use(authRouter);
 app.use('/product', productRouter);
 // app.use('/cart', cartRouter);
-
-
-app.use((req,res,next) => {
-const {userId} = req.session;
-if(!userId) {
-  authModel.getUsers(userId).then(user => {
-    console.log(user.id === userId);
-    return res.locals.user = user.id;
-  })
-}
-return next();
-// res.status(500).render('error');
-});
 
 app.use('/admin',adminRouter);
 app.get('/not-admin', (req,res) => {

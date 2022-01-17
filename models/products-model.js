@@ -5,7 +5,7 @@ useNewUrlParser: true,
 useUnifiedTopology: true
 };
 const Product = require('./schema/productSchema.js');
-
+const connection = mongoose.createConnection(DB_Url,opts);
 //any communicate with db
 exports.getAllProducts = (page) => {
   const limit = 5;

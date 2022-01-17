@@ -12,6 +12,14 @@
 
   <label for="email">Your Email</label>
   <input type="email" name="email" id="email" placeholder="Your E-mail" class="text-input">
+  <% for(let i=0;i<notCorrect.length;i+=1) { %>
+    <% if(notCorrect[i]){ %>
+
+    <p class="alert alert-warning">
+      <%= notCorrect[i] %>
+    </p>
+    <%} %>
+<% } %>
   <label for="pass">your password</label>
   <input type="password" name="password" id="pass" placeholder="Your Password" class=" text-input">
   <input class="btn btn-danger" type="submit" value="Login">

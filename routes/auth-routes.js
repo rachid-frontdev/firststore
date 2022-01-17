@@ -20,5 +20,6 @@ router.post('/login',authGuard.notAuth,
 check('email').not().isEmpty().withMessage('email Required').isEmail().withMessage('use @example.com'),
 check('password').not().isEmpty().withMessage('password Required').isLength({min:6}).withMessage('should password at least 6 character'),
 authController.postLogin);
-router.all('/logout',authGuard.isAuth, authController.logout);
+//
+router.all('/logout', authGuard.isAuth, authController.logout);
 module.exports = router;

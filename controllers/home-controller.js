@@ -8,6 +8,7 @@ exports.getHome = (req,res) => {
   // get total documents in the Posts collection
   const {page} = req.query;
   const {userId} = req.session;
+  // const {userId = req.sessionID} = req.session;
   let validCategories = ['clothes', 'phones', 'electronics'];
   let category = req.query.category;
   let productsPromise;

@@ -44,10 +44,6 @@ exports.login = (email, password) => {
         email:email
       }).orFail();
     }).then(user => {
-      if(!user){
-        mongoose.disconnect();
-        reject('there is no user matches');
-      } else {
       bcrypt.compare(password, user.password).then(same => {
         if(!same) {
           mongoose.disconnect();
@@ -59,25 +55,10 @@ exports.login = (email, password) => {
             isAdmin:user.isAdmin
           });
         }
-      })
-      }
+      });
     }).catch(err => {
       mongoose.disconnect();
-      reject(err);
+      reject(`there is no user matches to ${err.query.email}`);
     });
   });
-}
-exports.getUsers =  (id) => {
-  return new Promise((resolve,reject) => {
-    mongoose.connect(DB_Url).then(() => {
-      return User.findById(id);
-    }).then(user => {
-      console.log('from getUsers', user);
-      mongoose.disconnect();
-      resolve(user);
-    }).catch(err=> {
-      mongoose.disconnect();
-      console.log(err)
-    });
-});
 }
