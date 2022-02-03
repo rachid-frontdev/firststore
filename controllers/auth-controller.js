@@ -4,11 +4,11 @@ const validationResult = require('express-validator').validationResult;
 exports.postSignup = (req,res) => {
   const {username, email,password} = req.body;
   if(validationResult(req).isEmpty()) {
-    authModel.createNewUser(username, email,password)
-    .then((user) => {
-      // console.log('from controller', user.id);
+    authModel.createNewUser(username, email,password).
+    then(user => {
       req.session.userId = user.id;
-      return res.redirect('/');
+      return res.json(user);
+      //   return res.redirect('/');
     })
     .catch(err => {
       res.redirect('/signup');
@@ -25,7 +25,6 @@ exports.getSignup = (req,res) => {
   validationErrors: req.flash('validationErrors')[0],
   isUser:false,
   isAdmin:false
-
 });
 }
 exports.getLogin = (req,res) => {
@@ -42,17 +41,20 @@ isAdmin:false
 
 
 }
+
 exports.postLogin = (req,res) => {
   const {email,password} = req.body;
 if(validationResult(req).isEmpty()) {
   authModel.login(email,password)
-  .then((twoVal) => {
-    console.log('this is req.session.userid ' + twoVal.id);
-  req.session.userId = twoVal.id;
-  req.session.isAdmin = twoVal.isAdmin;
-  return res.redirect('/');
+  .then(({_id}) => {
+      // console.log('this is req.session.userid ' + _id);
+    req.session.userId = _id;
+    // req.session.isAdmin = twoVal.isAdmin;
+    console.log({ token: _id });
+    return res.redirect('/');
   })
   .catch(err => {
+    console.log(err)
     req.flash('passValidNot', err);
     res.redirect('/login');
   });
