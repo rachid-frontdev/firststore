@@ -13,9 +13,15 @@ const flash = require('connect-flash');
 const helmet = require("helmet");
 const SessionStore = require('connect-mongodb-session')(session);
 const port = process.env.PORT || 3000;
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log('server run')
 });
+// Handling Error
+process.on("unhandledRejection", (err) => {
+  console.log(`An error occurred: ${err.message}`)
+  server.close(() => process.exit(1))
+});
+
 db();
 // for parsing application/json
 app.use(express.json());
