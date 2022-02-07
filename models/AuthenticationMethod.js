@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const {Schema} = mongoose;
 const ObjectId = require('mongoose').ObjectId;
-require('../db.js')();
+// require('../db.js')();
 module.exports = mongoose.model('AuthenticationMethod', Schema({
 type: {
 type: String,

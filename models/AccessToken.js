@@ -2,7 +2,7 @@
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
-require('../db.js')();
+// require('../db.js')();
 module.exports = mongoose.model('AccessToken', Schema({
 _id: {
 type: String,

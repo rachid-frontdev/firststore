@@ -89,14 +89,12 @@ exports.login = (email, password) => {
     })
     .then(({ _id }) => {
     user = _id;
-    console.log(user);
     return AuthenticationMethod.findOne({ user }).orFail();
   })
   .then(({ secret }) => {
       return bcrypt.compare(password, secret)
     })
     .then(same => {
-    console.log(user);
     return AccessToken.create({ user })
   })
   .then(({_id}) => resolve({_id}))
