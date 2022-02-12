@@ -49,7 +49,7 @@ store.on('error', (error) => {
 app.use(helmet());
 app.use(session({
   name:SESS_NAME,
-    secret:'session secret',
+    secret:process.env.SECRET_SESSION,
     saveUninitialized:false,
     resave:false ,
     cookie: {secure: IN_PROD,sameSite:true },
