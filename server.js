@@ -12,6 +12,7 @@ var session = require('express-session');
 const flash = require('connect-flash');
 const helmet = require("helmet");
 const SessionStore = require('connect-mongodb-session')(session);
+const csurf = require('csurf');
 const port = process.env.PORT || 3000;
 const server = app.listen(port, () => {
   console.log('server run')
@@ -45,16 +46,18 @@ const store = new SessionStore({
 store.on('error', (error) => {
   console.log(error);
 });
-
+//manage http header security
 app.use(helmet());
 app.use(session({
   name:SESS_NAME,
     secret:process.env.SECRET_SESSION,
     saveUninitialized:false,
     resave:false ,
-    cookie: {secure: IN_PROD,sameSite:true },
+    cookie: {secure: IN_PROD,ephemeral:true//destroy cookie when browser closes
+      , httpOnly:true,sameSite:true },
     store:store
   }));
+app.use(csurf());
 app.use(flash());
 
 // app.use((req,res,next) => {

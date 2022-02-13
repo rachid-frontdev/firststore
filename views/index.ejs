@@ -36,6 +36,7 @@
        <input type="hidden" name="name" value="<%=item.title %>">
        <input type="hidden" name="productId" value="<%=item._id %>">
        <input type="hidden" name="redirectTo" value="/product/<%=item._id %>">
+       <input type="hidden" name="_csrf" value="<%= csrfToken %>">
        <input type="number" name="amount" class="form-control form-control-sm">
        <input type="submit" value="add to cart" class="form-control form-control-sm">
      </form>

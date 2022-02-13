@@ -1,14 +1,13 @@
 const authModel = require('../models/authenticateModel.js');
 const validationResult = require('express-validator').validationResult;
-
 exports.postSignup = (req,res) => {
   const {username, email,password} = req.body;
   if(validationResult(req).isEmpty()) {
     authModel.createNewUser(username, email,password).
     then(user => {
       req.session.userId = user.id;
-      return res.json(user);
-      //   return res.redirect('/');
+      // return res.json(user);
+        return res.redirect('/');
     })
     .catch(err => {
       res.redirect('/signup');
@@ -24,7 +23,8 @@ exports.getSignup = (req,res) => {
   title:'signup',
   validationErrors: req.flash('validationErrors')[0],
   isUser:false,
-  isAdmin:false
+  isAdmin:false,
+  csrfToken:req.csrfToken()
 });
 }
 exports.getLogin = (req,res) => {
@@ -33,7 +33,8 @@ exports.getLogin = (req,res) => {
   validlogin:req.flash('validLogin'),
   notCorrect:req.flash('passValidNot'),
 isUser:false,
-isAdmin:false
+isAdmin:false,
+csrfToken:req.csrfToken()
 });
 //safe default!!
   req.session.userId = null;
@@ -108,6 +109,7 @@ if(validationResult(req).isEmpty()) {
 // }
 // }
 exports.logout = (req,res) => {
+  // delete the token that you saved on the client
   req.session.destroy((err) => {
     if(err) res.redirect('/error');
     res.clearCookie(process.env.SESS_NAME);

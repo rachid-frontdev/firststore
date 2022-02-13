@@ -22,6 +22,7 @@
 <% } %>
   <label for="pass">your password</label>
   <input type="password" name="password" id="pass" placeholder="Your Password" class=" text-input">
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <input class="btn btn-danger" type="submit" value="Login">
 
 </form>

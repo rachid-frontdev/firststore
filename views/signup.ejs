@@ -2,7 +2,6 @@
 <%- include('parts/nav') %>
 <h3 style="text-align:center" class="p-5">Create Account</h3>
 <form class="shadow-sm mb-5 bg-body bg-primary rounded p-5" id="signup" action="/signup" method="POST" >
-  <% console.log(validationErrors)%>
 
   <label for="user">your username</label>
   <input type="text" name="username" id="user" placeholder="your username" class="text-input">
@@ -42,7 +41,7 @@
 
   <label for="Confirmpass">Confirm password</label>
   <input type="password" name="confirmpass" id="Confirmpass" placeholder="Confirm Password" class="text-input">
-
+  <input type="hidden" name="_csrf" value="<%= csrfToken %>">
   <input class="btn btn-danger" type="submit" value="Add Account">
 
 </form>

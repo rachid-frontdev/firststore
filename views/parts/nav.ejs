@@ -22,6 +22,7 @@
           </li>
           <li class="nav-item">
             <form class="nav-link" action="/logout" method="POST">
+              <input type="hidden" name="_csrf" value="<%= csrfToken %>">
               <input type="submit" value="Logout"  class="btn btn-danger px-2">
             </form>
           </li>

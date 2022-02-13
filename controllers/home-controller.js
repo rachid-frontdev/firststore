@@ -28,7 +28,8 @@ productsPromise.then((products) => {
   errors:req.session.errors,
   validationErrors:req.flash('validationErrors')[0],
   currentPage: page,
-  totalPages: Math.ceil(count / limit)
+  totalPages: Math.ceil(count / limit),
+  csrfToken:req.csrfToken()
 });
 });
 }).catch(err => {
