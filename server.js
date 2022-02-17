@@ -13,7 +13,9 @@ const flash = require('connect-flash');
 const helmet = require("helmet");
 const SessionStore = require('connect-mongodb-session')(session);
 const csurf = require('csurf');
+const smartUserModel = require('./models/smartUser');
 const port = process.env.PORT || 3000;
+const productionOpts = require('./setting')
 const server = app.listen(port, () => {
   console.log('server run')
 });
@@ -37,7 +39,6 @@ const {
 } = process.env;
 
 const IN_PROD = NODE_ENV === 'production';
-
 const store = new SessionStore({
   uri:'mongodb://localhost:27017/online-shop',
   collection:'sessions'
@@ -50,27 +51,21 @@ store.on('error', (error) => {
 app.use(helmet());
 app.use(session({
   name:SESS_NAME,
-    secret:process.env.SECRET_SESSION,
+    secret:productionOpts.SESSION_SECRET_KEY,
     saveUninitialized:false,
     resave:false ,
-    cookie: {secure: IN_PROD,ephemeral:true//destroy cookie when browser closes
-      , httpOnly:true,sameSite:true },
+    cookie: {
+      secure: IN_PROD,
+      ephemeral:productionOpts.SESSION_EPHEMERAL_COOKIES,//destroy cookie when browser closes
+      httpOnly:true,
+      sameSite:true,
+      expires:productionOpts.SESSION_DURATION,
+      maxAge:productionOpts.SESSION_EXTENSION_DURATION
+  },
     store:store
   }));
 app.use(csurf());
 app.use(flash());
-
-// app.use((req,res,next) => {
-// const {userId} = req.session;
-// if(userId) {
-//   console.log('from app.use',userId);
-//     // req.session.userId = user.id;
-//     // return res.locals.user = userId;
-// }
-// return next();
-// // res.status(500).render('error');
-// });
-
 app.use(homeRouter);
 app.use(authRouter);
 app.use('/product', productRouter);
@@ -93,3 +88,31 @@ app.get('/error', (req,res) => {
     isAdmin:req.session.isAdmin
   });
 });
+/*
+app.use((err,req,res,next) => {
+if (err.code !== 'EBADCSRFTOKEN') return next(err)
+
+if(!(req.session && req.session.userId)) {
+  next();
+}
+// smartUserModel.smarty(req.session.userId)
+// .then((user) => {
+//     console.log('here', user);
+    // req.user = user;
+    // res.locals.user = user;
+  next()
+// })
+// .catch(err=> {
+//   console.log('in smart',err.message);
+// })
+// const {userId} = req.session;
+// if(userId) {
+//   console.log('from app.use',userId);
+//     // req.session.userId = user.id;
+//
+//     // return res.locals.user = userId;
+// }
+// return next();
+// // res.status(500).render('error');
+});
+*/

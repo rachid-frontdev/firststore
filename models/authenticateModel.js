@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const User = require('./userban.js'); //collection user +s
 const AuthenticationMethod = require('./AuthenticationMethod');
 const AccessToken = require('./AccessToken');
-
+const productionOpts = require('../setting')
 exports.register = (req, res, next) => {
   console.log(req.body);
 User.create(req.body).then(user => {
@@ -18,20 +18,17 @@ catch(next);
 
 exports.createNewUser = (username,email,password) => {
   return new Promise((resolve,reject) => {
-    mongoose.connect(DB_Url).then(() => {
-      return User.findOne({
+       User.findOne({
         email:email
-      })
     }).then(user => {
       if(user){
         mongoose.disconnect();
         reject('this email is Used!!');
-      }
-      else {
+      } else {
         return User.create({username:username,email:email})
       }
     }).then(user => {
-      return bcrypt.hash(password, 12).then(secret => AuthenticationMethod.create({ user, secret })).then(() => {
+      return bcrypt.hash(password, productionOpts.BCRYPT_WORK_FACTOR).then(secret => AuthenticationMethod.create({ user, secret })).then(() => {
         mongoose.disconnect();
           return resolve({id:user._id,user})
       })
@@ -46,6 +43,7 @@ exports.createNewUser = (username,email,password) => {
     //   //   email:email
     //   //   // password:hashedPass
     //   // })
+    // db.collection.insert
     //   // return user.save()
     // })
     // .then((user) => {

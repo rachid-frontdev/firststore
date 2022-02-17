@@ -5,7 +5,6 @@ exports.postSignup = (req,res) => {
   if(validationResult(req).isEmpty()) {
     authModel.createNewUser(username, email,password).
     then(user => {
-      req.session.userId = user.id;
       // return res.json(user);
         return res.redirect('/');
     })
@@ -113,6 +112,7 @@ exports.logout = (req,res) => {
   req.session.destroy((err) => {
     if(err) res.redirect('/error');
     res.clearCookie(process.env.SESS_NAME);
+    res.clearCookie("_csrf");
     //   req.flash('success', 'you are logouts')
     res.redirect('/login');
   });
